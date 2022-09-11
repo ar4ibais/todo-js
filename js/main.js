@@ -1,4 +1,3 @@
-// Находим элементы на странице
 const form = document.querySelector('#form'),
       taskInput = document.querySelector('#taskInput'),
       tasksList = document.querySelector('#tasksList'),
@@ -6,7 +5,6 @@ const form = document.querySelector('#form'),
 
 form.addEventListener('submit', addTask);
 
-//Добавление задачи
 function addTask(e) {
     e.preventDefault();
 
