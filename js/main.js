@@ -40,24 +40,27 @@ function addTask(e) {
 
 function deleteTask(e) {
     const target = e.target;
-    if (target.dataset.action == 'delete') {
+    if (target.dataset.action != 'delete') {
+        return;
+    } else {
         const task = target.closest('li');
 
         task.remove();
         
-    }
-
-    if (tasksList.children.length == 1) {
-        emptyList.classList.remove('none');
+        if (tasksList.children.length == 1) {
+            emptyList.classList.remove('none');
+        }
     }
 }
 
 function doneTask(e) {
     const target = e.target;
 
-    if (target.dataset.action == 'done') {
+    if (target.dataset.action != 'done') {
+        return;
+    } else {
         const task = target.closest('li');
-
+    
         task.classList.add('task-title--done');
     }
 }
