@@ -7,27 +7,8 @@ let tasks = [];
 
 if (localStorage.getItem('tasks')) {
     tasks = JSON.parse(localStorage.getItem('tasks'));
+    tasks.forEach(item => renderTask(item));
 }
-
-tasks.forEach(item => {
-    const cssClass = item.done ? "task-title task-title--done" : "task-title";
-
-    const taskHTML = `
-        <li id="${item.id}" class="list-group-item d-flex justify-content-between task-item">
-            <span class="${cssClass}">${item.text}</span>
-            <div class="task-item__buttons">
-                <button type="button" data-action="done" class="btn-action">
-                    <img src="./img/tick.svg" alt="Done" width="18" height="18">
-                </button>
-                <button type="button" data-action="delete" class="btn-action">
-                    <img src="./img/cross.svg" alt="Done" width="18" height="18">
-                </button>
-            </div>
-        </li>
-    `;
-
-    tasksList.insertAdjacentHTML('beforeend', taskHTML);
-});
 
 form.addEventListener('submit', addTask);
 
@@ -50,23 +31,7 @@ function addTask(e) {
 
     tasks.push(newTask);
 
-    const cssClass = newTask.done ? "task-title task-title--done" : "task-title";
-
-    const taskHTML = `
-        <li id="${newTask.id}" class="list-group-item d-flex justify-content-between task-item">
-            <span class="${cssClass}">${newTask.text}</span>
-            <div class="task-item__buttons">
-                <button type="button" data-action="done" class="btn-action">
-                    <img src="./img/tick.svg" alt="Done" width="18" height="18">
-                </button>
-                <button type="button" data-action="delete" class="btn-action">
-                    <img src="./img/cross.svg" alt="Done" width="18" height="18">
-                </button>
-            </div>
-        </li>
-    `;
-
-    tasksList.insertAdjacentHTML('beforeend', taskHTML);
+    renderTask(newTask);
 
     taskInput.value = '';
     taskInput.focus();
@@ -128,4 +93,24 @@ function checkEmptyList() {
 
 function saveToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTask(item) {
+    const cssClass = item.done ? "task-title task-title--done" : "task-title";
+
+    const taskHTML = `
+        <li id="${item.id}" class="list-group-item d-flex justify-content-between task-item">
+            <span class="${cssClass}">${item.text}</span>
+            <div class="task-item__buttons">
+                <button type="button" data-action="done" class="btn-action">
+                    <img src="./img/tick.svg" alt="Done" width="18" height="18">
+                </button>
+                <button type="button" data-action="delete" class="btn-action">
+                    <img src="./img/cross.svg" alt="Done" width="18" height="18">
+                </button>
+            </div>
+        </li>
+    `;
+
+    tasksList.insertAdjacentHTML('beforeend', taskHTML);
 }
