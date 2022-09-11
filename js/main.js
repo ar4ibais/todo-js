@@ -1,4 +1,3 @@
-// Находим элементы на странице
 const form = document.querySelector('#form'),
       taskInput = document.querySelector('#taskInput'),
       tasksList = document.querySelector('#tasksList'),
@@ -6,7 +5,8 @@ const form = document.querySelector('#form'),
 
 form.addEventListener('submit', addTask);
 
-//Добавление задачи
+tasksList.addEventListener('click', deleteTask);
+
 function addTask(e) {
     e.preventDefault();
 
@@ -33,5 +33,19 @@ function addTask(e) {
 
     if (tasksList.children.length > 1) {
         emptyList.classList.add('none');
+    }
+}
+
+function deleteTask(e) {
+    const target = e.target;
+    if (target.dataset.action == 'delete') {
+        const task = target.closest('li');
+
+        task.remove();
+        
+    }
+
+    if (tasksList.children.length == 1) {
+        emptyList.classList.remove('none');
     }
 }
